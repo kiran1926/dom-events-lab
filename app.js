@@ -5,10 +5,8 @@ const buttons = document.querySelectorAll('.button')
 let num1 = '';
 let num2 = '';
 let operator = '';
-let result = '';
 
 /*------------------------ Cached Element References ------------------------*/
-const calculator = document.querySelector('#calculator')
 const display = document.querySelector('.display')
 
 /*----------------------------- display -----------------------------*/
@@ -18,13 +16,8 @@ display.innerText = '0';
 // for all buttons
 buttons.forEach((button) => {
     button.addEventListener('click', (event) =>{
-        console.log(event.target.innerText);
-
-    });
-});
-//for calculator
-calculator.addEventListener('click', (event) => {
     const value = event.target.innerText;
+
     if(event.target.classList.contains('number')){
         if(!operator){
             num1 += value;
@@ -34,7 +27,7 @@ calculator.addEventListener('click', (event) => {
         //append to the display
         updateDisplay(num1 + (operator || '') + (num2 || ''));
 
-    }else if(event.target.classList.contains('operator')){
+    } else if (event.target.classList.contains('operator')){
         
         if (value === 'C'){ 
             //reset calc
@@ -50,13 +43,14 @@ calculator.addEventListener('click', (event) => {
             operator = value;
             updateDisplay(num1 + operator);
         }
-    }else if (event.target.classList.contains('equals')){
+    } else if (event.target.classList.contains('equals')){
         result = calculate(Number(num1), Number(num2), operator);
         updateDisplay(result);
         num1 = result.toString();
         num2 = '';
         operator = '';
     }
+});
 });
 
 /*-------------------------------- Functions --------------------------------*/
@@ -69,11 +63,11 @@ const calculate = (num1, num2, operator) => {
         case '/': return num2 !== 0 ? num1 / num2 : 'Err'; // Avoid division by zero
         default: return '';
     }
-}
+};
 //display
 function updateDisplay(value){
     display.innerText = value;
-}
+};
 //reset
 function resetCalc(){
     num1 = '';
@@ -81,4 +75,4 @@ function resetCalc(){
     operator = '';
     result = '';
     updateDisplay('0');
-}
+};
